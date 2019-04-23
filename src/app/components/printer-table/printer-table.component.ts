@@ -9,6 +9,7 @@ import { PrinterService } from 'src/app/core/services/printer.service';
 import { LocationService } from 'src/app/core/services/location.service';
 import { Subject, Observable } from 'rxjs';
 import { switchMap, takeUntil, filter, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pm-printer-table',
@@ -20,6 +21,7 @@ export class PrinterTableComponent implements OnDestroy {
     private modal: MatDialog,
     private printerService: PrinterService,
     private locationService: LocationService,
+    private router: Router,
   ) {}
 
   public printers$ = this.getPrinters();
@@ -27,18 +29,22 @@ export class PrinterTableComponent implements OnDestroy {
 
   private destroyed$ = new Subject();
 
-  public openAddModal() {
-    this.openModal(this.printerService.addPrinter.bind(this.printerService));
-  }
-
   public ngOnDestroy() {
     this.modal.closeAll();
     this.destroyed$.next();
     this.destroyed$.complete();
   }
 
-  public editPrinter(printer: Printer) {
+  public openAddModal(): void {
+    this.openModal(this.printerService.addPrinter.bind(this.printerService));
+  }
+
+  public editPrinter(printer: Printer): void {
     this.openModal(this.printerService.updatePrinter.bind(this.printerService), printer);
+  }
+
+  public navigate(printer: Printer): void {
+    this.router.navigate([`${printer.id}`]);
   }
 
   private openModal(updateFunction: (printer: Printer) => Observable<never>, printer?: Printer): void {
