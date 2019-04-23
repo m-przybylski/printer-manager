@@ -3,6 +3,7 @@ export interface Printer {
   name: string;
   ip: string;
   location: Location;
+  status?: boolean;
 }
 export interface Location {
   floor: string;

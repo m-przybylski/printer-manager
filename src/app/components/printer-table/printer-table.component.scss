@@ -5,4 +5,19 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  &__status{
+    &--online, &--offline {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+
+    &--online {
+      background: yellowgreen;
+    }
+    &--offline {
+      background: yellow;
+    }
+  }
 }

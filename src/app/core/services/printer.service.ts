@@ -38,7 +38,7 @@ export class PrinterService {
   }
 
   private upsertPrinter(printer: Printer) {
-    printer.id = printer.id || -1;
+    printer.id = printer.id === null ? -1 : printer.id;
     return this.getAll().pipe(
       map(printers => {
         printers = printers || [];
@@ -63,5 +63,9 @@ export class PrinterService {
 
   private findPrinter(printers: Printer[], printerId: number) {
     return printers.find(printer => printer.id === printerId);
+  }
+
+  public randomizeStatus(printer: Printer): boolean {
+    return printer.id % 3 === 0 ? false : true;
   }
 }

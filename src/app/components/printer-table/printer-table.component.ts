@@ -1,11 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { AddPrinterDialogComponent, AddPrinterPayload } from '../../dialogs/add-printer/add-printer.component';
+import {
+  AddEditPrinterDialogComponent,
+  AddEditPrinterPayload,
+} from '../../dialogs/add-edit-printer/add-edit-printer.component';
 import { Printer } from 'src/app/core/interfaces';
 import { PrinterService } from 'src/app/core/services/printer.service';
 import { LocationService } from 'src/app/core/services/location.service';
-import { Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
+import { switchMap, takeUntil, filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'pm-printer-table',
@@ -19,30 +22,13 @@ export class PrinterTableComponent implements OnDestroy {
     private locationService: LocationService,
   ) {}
 
-  public printers$ = this.printerService.getAll();
-  public displayedColumns: string[] = ['name', 'ip', 'options'];
+  public printers$ = this.getPrinters();
+  public displayedColumns: string[] = ['name', 'ip', 'status', 'options'];
 
   private destroyed$ = new Subject();
 
   public openAddModal() {
-    this.locationService
-      .getAll()
-      .pipe(
-        switchMap(locations =>
-          this.modal
-            .open<AddPrinterDialogComponent, AddPrinterPayload, Printer>(AddPrinterDialogComponent, {
-              data: { locations },
-            })
-            .afterClosed(),
-        ),
-        switchMap(printer => this.printerService.addPrinter(printer)),
-        takeUntil(this.destroyed$),
-      )
-      .subscribe({
-        complete: () => {
-          this.printers$ = this.printerService.getAll();
-        },
-      });
+    this.openModal(this.printerService.addPrinter.bind(this.printerService));
   }
 
   public ngOnDestroy() {
@@ -51,5 +37,39 @@ export class PrinterTableComponent implements OnDestroy {
     this.destroyed$.complete();
   }
 
-  public editPrinter(pritner: Printer) {}
+  public editPrinter(printer: Printer) {
+    this.openModal(this.printerService.updatePrinter.bind(this.printerService), printer);
+  }
+
+  private openModal(updateFunction: (printer: Printer) => Observable<never>, printer?: Printer): void {
+    this.locationService
+      .getAll()
+      .pipe(
+        switchMap(locations =>
+          this.modal
+            .open<AddEditPrinterDialogComponent, AddEditPrinterPayload, Printer>(AddEditPrinterDialogComponent, {
+              data: { locations, printer },
+            })
+            .afterClosed(),
+        ),
+        filter(newPrinter => !!newPrinter),
+        switchMap(updateFunction),
+        takeUntil(this.destroyed$),
+      )
+      .subscribe({
+        complete: () => {
+          this.printers$ = this.getPrinters();
+        },
+      });
+  }
+
+  private getPrinters() {
+    return this.printerService
+      .getAll()
+      .pipe(
+        map(printers =>
+          printers.map(printer => ({ ...printer, status: this.printerService.randomizeStatus(printer) })),
+        ),
+      );
+  }
 }

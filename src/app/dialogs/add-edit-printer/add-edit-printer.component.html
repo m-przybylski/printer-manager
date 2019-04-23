@@ -1,5 +1,6 @@
 <div mat-dialog-title class="add-printer__header">
-  <h1>Add Printer</h1>
+  <h1 *ngIf="isEditMode">Edit Printer</h1>
+  <h1 *ngIf="!isEditMode">Add Printer</h1>
   <button tabindex="-1" mat-icon-button mat-dialog-close>X</button>
 </div>
 <div mat-dialog-content [formGroup]="printerForm">
@@ -18,7 +19,7 @@
   <div class="add-printer__row">
     <mat-form-field appearance="outline">
       <mat-label>Printer Location</mat-label>
-      <mat-select>
+      <mat-select formControlName="location" [compareWith]="compareFn">
           <mat-option *ngFor="let location of locations" [value]="location">
             {{location.floor}} - {{location.room}}
           </mat-option>

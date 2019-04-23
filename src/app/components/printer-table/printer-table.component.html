@@ -13,13 +13,20 @@
       <mat-header-cell *matHeaderCellDef> IP Address </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.ip}} </mat-cell>
     </ng-container>
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <div *ngIf="element.status" class="printer-table__status--online"></div>
+        <div *ngIf="!element.status" class="printer-table__status--offline"></div>
+      </mat-cell>
+    </ng-container>
     <ng-container matColumnDef="options">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <button mat-flat-button color="accent" (click)="editPrinter()">Edit</button>
-        </mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-flat-button color="accent" (click)="editPrinter(element)">Edit</button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
