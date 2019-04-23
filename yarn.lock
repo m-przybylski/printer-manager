@@ -603,6 +603,11 @@
   dependencies:
     "@types/jest-diff" "*"
 
+"@types/lodash@^4.14.109":
+  version "4.14.123"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.123.tgz#39be5d211478c8dd3bdae98ee75bb7efe4abfe4d"
+  integrity sha512-pQvPkc4Nltyx7G1Ww45OjVqUsJP4UsZm+GWJpigXgkikZqJgRm4c48g027o6tdgubWHwFRF15iFd+Y4Pmqv6+Q==
+
 "@types/node@*":
   version "11.13.5"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.5.tgz#266564afa8a6a09dc778dfacc703ed3f09c80516"
@@ -2211,6 +2216,14 @@ decamelize@^2.0.0:
   integrity sha512-Ikpp5scV3MSYxY39ymh45ZLEecsTdv/Xj2CaQfI8RLMuwi7XvjX9H/fhraiSuU+C5w5NTDu4ZU72xNiZnurBPg==
   dependencies:
     xregexp "4.0.0"
+
+deceiver-core@^1.0.0-beta.11:
+  version "1.0.0-beta.11"
+  resolved "https://registry.yarnpkg.com/deceiver-core/-/deceiver-core-1.0.0-beta.11.tgz#6bf4c99998e73570967d2fce10e73776e7f964a6"
+  integrity sha512-MsZqKRGmuN5PGx0B4dN0GW+Y7h61n5MjVcZy1DBEXsygYgQW61RvFX+nkyKiZmzSxGdrzcM368duwri04s+plg==
+  dependencies:
+    "@types/lodash" "^4.14.109"
+    lodash "^4.17.10"
 
 decode-uri-component@^0.2.0:
   version "0.2.0"
@@ -5172,6 +5185,11 @@ neo-async@^2.5.0, neo-async@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
   integrity sha512-MFh0d/Wa7vkKO3Y3LlacqAEeHK0mckVqzDieUKTT+KGxi+zIpeVsFxymkIiRpbpDziHc290Xr9A1O4Om7otoRA==
+
+ngx-wallaby-jest@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-wallaby-jest/-/ngx-wallaby-jest-0.0.2.tgz#16f81241d533f578c0018f592f83b72c70b79518"
+  integrity sha512-BnzfwuasCIlBF9cMCtsHnpKAm9g8xwNCxqczfP0qcNMae67Xq/XV3CXWNcrFCz3XPWulZbTGIZrLhbeYZszTdQ==
 
 nice-try@^1.0.4:
   version "1.0.5"
