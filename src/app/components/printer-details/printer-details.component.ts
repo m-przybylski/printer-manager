@@ -62,7 +62,7 @@ export class PrinterDetailsComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  public openReport() {
+  public openStatusChart() {
     this.matDialog.open<PrinterStatusDialogComponent, PrinterStatusDialogPayload>(PrinterStatusDialogComponent, {
       data: {
         events: [
@@ -102,6 +102,8 @@ export class PrinterDetailsComponent implements OnInit, OnDestroy {
       },
     });
   }
+
+  public openReport() {}
 
   /**
    * get time in past to mock data for chart
