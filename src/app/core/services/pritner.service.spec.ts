@@ -77,7 +77,7 @@ describe('PrinterService', () => {
     const result = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
     localStorageService.get = jest.fn(() => of(resultArray)) as any;
     localStorageService.set = jest.fn(() => EMPTY) as any;
-    service.addPrinter({} as any).subscribe();
+    service.addPrinter({ id: null } as any).subscribe();
     expect((localStorageService.set as jest.Mock).mock.calls[0][1]).toEqual(result);
   });
   it('should update printer on the list', () => {
