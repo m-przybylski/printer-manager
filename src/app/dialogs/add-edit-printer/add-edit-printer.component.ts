@@ -37,7 +37,10 @@ export class AddEditPrinterDialogComponent implements OnInit {
       ip: this.ip,
       location: new FormControl(),
     });
-    this.printerForm.patchValue(this.data.printer);
+
+    if (this.isEditMode) {
+      this.printerForm.patchValue(this.data.printer);
+    }
   }
 
   public savePrinter() {

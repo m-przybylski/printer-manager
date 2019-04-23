@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrinterService } from 'src/app/core/services/printer.service';
 import { Printer } from 'src/app/core/interfaces';
@@ -7,13 +7,16 @@ import {
   PrinterStatusDialogPayload,
 } from 'src/app/dialogs/printer-status/printer-status.component';
 import { MatDialog } from '@angular/material';
+import { ConfirmationDialogComponent } from 'src/app/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { Subject } from 'rxjs';
+import { takeUntil, filter, switchMap, map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'pm-printer-details',
   templateUrl: './printer-details.component.html',
   styleUrls: ['./printer-details.component.scss'],
 })
-export class PrinterDetailsComponent implements OnInit {
+export class PrinterDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private printerService: PrinterService,
@@ -21,6 +24,7 @@ export class PrinterDetailsComponent implements OnInit {
     private matDialog: MatDialog,
   ) {}
   public selectedPrinter: Printer;
+  private destroyed$ = new Subject();
   public ngOnInit() {
     const printerId = this.route.snapshot.paramMap.get('id');
     if (printerId === null) {
@@ -35,6 +39,27 @@ export class PrinterDetailsComponent implements OnInit {
       },
       () => this.navigateNotFount(),
     );
+  }
+
+  public ngOnDestroy() {
+    this.matDialog.closeAll();
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
+  public removePrinter(printer: Printer) {
+    this.matDialog
+      .open<ConfirmationDialogComponent, undefined, boolean>(ConfirmationDialogComponent)
+      .afterClosed()
+      .pipe(
+        filter(result => result),
+        switchMap(() => {
+          this.router.navigate(['/']);
+          return this.printerService.removePrinter(printer);
+        }),
+        takeUntil(this.destroyed$),
+      )
+      .subscribe();
   }
 
   public openReport() {

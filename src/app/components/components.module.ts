@@ -6,10 +6,17 @@ import { CommonModule } from '@angular/common';
 import { PrinterDetailsComponent } from './printer-details/printer-details.component';
 import { RouterModule } from '@angular/router';
 import { StatusChartComponent } from './status-chart/status-chart.component';
+import { NotFoundComponent } from './not-found/not-found-component';
 
 @NgModule({
   imports: [MaterialComponentsModule, CommonModule, RouterModule],
-  declarations: [HeaderComponent, PrinterTableComponent, PrinterDetailsComponent, StatusChartComponent],
+  declarations: [
+    HeaderComponent,
+    PrinterTableComponent,
+    PrinterDetailsComponent,
+    StatusChartComponent,
+    NotFoundComponent,
+  ],
   exports: [HeaderComponent, PrinterTableComponent, PrinterDetailsComponent, StatusChartComponent],
   entryComponents: [],
 })

@@ -37,6 +37,19 @@ export class PrinterService {
     return this.upsertPrinter(printer);
   }
 
+  public removePrinter(printer): Observable<never> {
+    return this.getAll().pipe(
+      map(printers => {
+        const printerToRemove = this.findPrinter(printers, printer.id);
+        if (printerToRemove === undefined) {
+          throw new Error('printer does not exist');
+        }
+        return printers.filter(prntr => printer.id !== prntr.id);
+      }),
+      switchMap(printers => this.localStorageService.set(this.PRINTERS, printers)),
+    );
+  }
+
   private upsertPrinter(printer: Printer) {
     printer.id = printer.id === null ? -1 : printer.id;
     return this.getAll().pipe(
