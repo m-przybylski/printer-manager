@@ -1,0 +1,14 @@
+<div mat-dialog-title>
+  <h1>Printer Status report</h1>
+</div>
+<div class="printer-status__content">
+  <pm-status-chart [data]="events"></pm-status-chart>
+</div>
+<div mat-dialog-actions class="printer-status__actions">
+  <button
+    tabindex="-1"
+    mat-flat-button
+    mat-dialog-close
+    color="accent"
+    >Close</button>
+</div>

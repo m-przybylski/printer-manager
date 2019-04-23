@@ -1,1 +1,23 @@
-it workds!!!
+<div class="printer-details">
+  <div class="printer-details__row">
+    <div class="printer-info">
+      <div class="printer-info__label">Printer Id:</div>
+      <div class="printer-info__value">{{selectedPrinter.id}}</div>
+    </div>
+    <div class="printer-info">
+      <div class="printer-info__label">Printer Name:</div>
+      <div class="printer-info__value">{{selectedPrinter.name}}</div>
+    </div>
+  </div>
+  <div class="printer-details__row">
+    <div class="printer-info">
+      <div class="printer-info__label">Printer Location:</div>
+      <div class="printer-info__value">{{selectedPrinter.location.floor}} - {{selectedPrinter.location.room}}</div>
+    </div>
+  </div>
+  <div class="printer-details__row"></div>
+  <div class="printer-details__actions">
+    <button mat-flat-button color="accent" [routerLink]="['/']">Printers</button>
+    <button mat-flat-button color="accent" (click)="openReport()">Report</button>
+  </div>
+</div>

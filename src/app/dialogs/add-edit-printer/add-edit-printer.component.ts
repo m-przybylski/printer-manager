@@ -16,7 +16,7 @@ export interface AddEditPrinterPayload {
 })
 export class AddEditPrinterDialogComponent implements OnInit {
   constructor(
-    public dialogRef: MatDialogRef<AddEditPrinterDialogComponent>,
+    private dialogRef: MatDialogRef<AddEditPrinterDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AddEditPrinterPayload,
   ) {}
 

@@ -1,0 +1,33 @@
+.printer-details {
+  padding: 8px 16px;
+
+  &__row {
+    display: flex;
+    padding: 8px 0;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      margin: 0 8px 0 0;
+    }
+
+    button:nth-of-child(1) {
+      margin: 0px;
+    }
+  }
+}
+
+.printer-info {
+  margin: 0 16px 0 0;
+  &__label {
+    margin: 0 0 8px 0;
+    font-weight: 200;
+  }
+  &__value {
+    font-size: 1.25em;
+    font-weight: 700;
+  }
+}

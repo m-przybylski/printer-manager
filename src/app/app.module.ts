@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
-import { ComponentModule } from './components/components.module';
+import { ComponentsModule } from './components/components.module';
 import { DialogsModule } from './dialogs/dialogs.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
@@ -15,7 +15,7 @@ import { ContainersModule } from './containers/containers.module';
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
-    ComponentModule,
+    ComponentsModule,
     DialogsModule,
     AppRoutingModule,
     ContainersModule,

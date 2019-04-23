@@ -28,9 +28,10 @@
     </mat-form-field>
   </div>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions class="add-printer__actions">
   <button
-    mat-button
+    mat-flat-button
+    color="accent"
     [disabled]="!printerForm.valid"
     (click)="savePrinter()">Save</button>
 </div>

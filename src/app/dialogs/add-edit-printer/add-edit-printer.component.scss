@@ -12,4 +12,9 @@
       margin: 0;
     }
   }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+  }
 }

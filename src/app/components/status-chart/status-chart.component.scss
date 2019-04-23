@@ -1,0 +1,12 @@
+.status-chart {
+  display: flex;
+  width: calc(80vw - 40px);
+  height: 30px;
+
+  &__block {
+    background: yellow;
+    &--online {
+      background: yellowgreen;
+    }
+  }
+}

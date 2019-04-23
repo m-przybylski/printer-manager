@@ -1,0 +1,10 @@
+<div class="status-chart">
+  <div
+    *ngFor="let block of getData()"
+    class="status-chart__block"
+    [ngStyle]="{'flex-grow': block.duration}"
+    [ngClass]="{'status-chart__block--online': block.status}"
+    [matTooltip]="getTooltipInfo(block)"
+    >
+  </div>
+</div>
