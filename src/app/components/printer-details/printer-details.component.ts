@@ -10,6 +10,11 @@ import { MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from 'src/app/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { Subject } from 'rxjs';
 import { takeUntil, filter, switchMap, map, tap } from 'rxjs/operators';
+import { LocationService } from 'src/app/core/services/location.service';
+import {
+  AddEditPrinterDialogComponent,
+  AddEditPrinterPayload,
+} from 'src/app/dialogs/add-edit-printer/add-edit-printer.component';
 
 @Component({
   selector: 'pm-printer-details',
@@ -20,6 +25,7 @@ export class PrinterDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private printerService: PrinterService,
+    private locationService: LocationService,
     private router: Router,
     private matDialog: MatDialog,
   ) {}
@@ -45,6 +51,28 @@ export class PrinterDetailsComponent implements OnInit, OnDestroy {
     this.matDialog.closeAll();
     this.destroyed$.next();
     this.destroyed$.complete();
+  }
+
+  public editPrinter(printer: Printer) {
+    this.locationService
+      .getAll()
+      .pipe(
+        switchMap(locations =>
+          this.matDialog
+            .open<AddEditPrinterDialogComponent, AddEditPrinterPayload, Printer>(AddEditPrinterDialogComponent, {
+              data: { locations, printer },
+            })
+            .afterClosed(),
+        ),
+        filter(newPrinter => !!newPrinter),
+        switchMap(newPrinter => this.printerService.updatePrinter(newPrinter)),
+        takeUntil(this.destroyed$),
+      )
+      .subscribe({
+        complete: () => {
+          this.ngOnInit();
+        },
+      });
   }
 
   public removePrinter(printer: Printer) {

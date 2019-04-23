@@ -36,6 +36,8 @@ export class AddEditPrinterDialogComponent implements OnInit {
       name: this.name,
       ip: this.ip,
       location: new FormControl(),
+      isColor: new FormControl(),
+      description: new FormControl(),
     });
 
     if (this.isEditMode) {

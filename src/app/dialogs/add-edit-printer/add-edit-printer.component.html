@@ -24,8 +24,20 @@
             {{location.floor}} - {{location.room}}
           </mat-option>
         </mat-select>
-
     </mat-form-field>
+  </div>
+  <div class="add-printer__row">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="add-printer__row">
+    <mat-checkbox
+        formControlName="isColor"
+        >
+      Color Printer
+    </mat-checkbox>
   </div>
 </div>
 <div mat-dialog-actions class="add-printer__actions">
