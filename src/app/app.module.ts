@@ -8,6 +8,8 @@ import { DialogsModule } from './dialogs/dialogs.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
 import { ContainersModule } from './containers/containers.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +21,7 @@ import { ContainersModule } from './containers/containers.module';
     DialogsModule,
     AppRoutingModule,
     ContainersModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent],
