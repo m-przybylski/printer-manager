@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
-import { Printer } from './interfaces';
+import { Printer } from '../interfaces';
 import { Observable, throwError, of } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 
@@ -9,7 +9,13 @@ export class PrinterService {
   private readonly PRINTERS = 'PRINTERS';
   constructor(private localStorageService: LocalStorageService) {}
   public getAll(): Observable<Printer[]> {
-    return this.localStorageService.get<Printer[]>(this.PRINTERS);
+    return this.localStorageService.get<Printer[]>(this.PRINTERS).pipe(
+      catchError(error => {
+        if (error.code === 404) {
+          return of([]);
+        }
+      }),
+    );
   }
 
   public getById(id: number): Observable<Printer | undefined> {
@@ -44,7 +50,7 @@ export class PrinterService {
                 return curPrinter.id + 1;
               }
               return maxID;
-            }, -1);
+            }, 0);
           }
           return printers.concat(printer);
         }

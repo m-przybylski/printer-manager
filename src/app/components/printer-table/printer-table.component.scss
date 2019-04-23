@@ -1,0 +1,8 @@
+.printer-table {
+  padding: 8px 16px;
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

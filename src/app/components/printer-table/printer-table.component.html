@@ -1,3 +1,25 @@
-<button mat-flat-button color="primary" (click)="openAddModal()">
-  Open Modal
-</button>
+<div class="printer-table">
+  <div class="printer-table__actions">
+    <button mat-flat-button color="accent" (click)="openAddModal()">
+      Add Printer
+    </button>
+  </div>
+  <mat-table [dataSource]="printers$ | async">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="ip">
+      <mat-header-cell *matHeaderCellDef> IP Address </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.ip}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="options">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-flat-button color="accent" (click)="editPrinter()">Edit</button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
